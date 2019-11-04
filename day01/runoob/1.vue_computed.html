@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>v-if study</title>
+  <script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js" type="text/javascript"></script>
+</head>
+<body>
+<div id='app'>
+  <h1> 计算(computed)属性 在处理一些复杂逻辑时很有用； </h1>
+  <h2>computed  是基于它的依赖缓存的，只有相关的依赖发生变化时，才会重新取值，
+  而使用methods，在重新渲染的时候，函数总是重新调用执行
+  </h2>
+  {{msg}}
+  {{msg.split('').reverse().join('')}}
+  {{ msg.split('').reverse().join('') }}
+  <h1>=======================================</h1>
+  <p>原始字符串：{{msg}}</p>
+  <p>计算后反转字符串：{{reversedMessage}}</p>
+  <p>使用method 反转的字符串：{{reversedMessage2()}}</p>
+  </div>
+<script type="text/javascript">
+  var vm = new Vue({
+    el: '#app',
+    data: {
+      msg: '1234556'
+    },
+	computed:{
+		// 计算属性的getter 
+		reversedMessage:function(){
+			return this.msg.split('').reverse().join()
+		}
+	},
+	methods:{
+		reversedMessage2:function(){
+			return this.msg.split('').reverse().join();
+		}
+	}
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>v-for study</title>
+  <script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="app">
+  <h1>for</h1>
+  <ol>
+    <li v-for="site in sites">
+      {{ site.name}}
+    </li>
+  </ol>
+  <h1>+++++++++++++++++++++++++++++++++</h1>
+  <ul>
+    <template v-for=" site in sites">
+      <li>{{site.name}}</li>
+      <li>-----------</li>
+    </template>
+  </ul>
+  <h1>+++++++++++++++++++++++++++++++++</h1>
+  <ul>
+    <li v-for="(value,key) in object">
+      {{key}} : {{value}}
+    </li>
+  </ul>
+  <h1>+++++++++++++++++++++++++++++++++</h1>
+  <ul>
+    <li v-for="n in 10">
+      {{n}}
+    </li>
+  </ul>
+</div>
+<script>
+  new Vue ({
+    el:'#app',
+    data:{
+      sites:[
+        {name:"A"},
+        {name:"B"},
+        {name:"C"}
+      ],
+      object:{
+        name:'默儿',
+        url:"http://moer.com",
+        slogan:"加油"
+      }
+    }
+  })
+</script>
+</body>
+</html>
