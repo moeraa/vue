@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>v-if study</title>
+  <script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="app">
+  <p>hello</p>
+  <p v-if="seen==='A'">
+    {{msg}}
+  </p>
+  <p v-else-if="seen==='B'">
+    {{msg}}
+  </p>
+  <p v-else="seen==='C'">
+    {{msg}}
+  </p>
+  <template v-if="ok">
+    <h1>看看是啥子</h1>
+  </template>
+  <input type="text" title="输入" v-model="msg">
+  <input type="button" value="点击。。。" @click="biling">
+</div>
+<script>
+  new Vue({
+    el: '#app',
+    data: {
+      seen: false,
+      ok: true,
+      msg:"start....."
+    },
+    methods: {
+      biling() {
+        if (this.msg === 'A') {
+          this.msg = "A"
+        } else if (this.msg ==='B') {
+          this.msg = "B"
+        }else{
+          this.msg = "C"
+        }
+
+      }
+    }
+  });
+</script>
+</body>
+</html>

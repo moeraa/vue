@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>vue v-for object</title>
+		<script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<p v-for="object in list">{{object.id}}----{{object.name}}</p>
+		</div>
+		<script>
+			var vm = new Vue({
+				el:'#app',
+				data:{
+					list:[
+						{id:1,name:"chen1"},
+						{id:2,name:"chen2"},
+						{id:3,name:"chen3"},
+						{id:4,name:"chen4"}
+					]
+				},
+				methods:{
+					
+				}
+			})
+		</script>
+	</body>
+</html>
