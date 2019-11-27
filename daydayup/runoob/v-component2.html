@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>vue v-for</title>
+		<script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
+		<style type="text/css">
+			.btn {
+				border: none;
+				color: white;
+				padding: 15px 32px;
+				text-align: center;
+				text-decoration: none;
+				display: inline-block;
+				font-size: 16px;
+				margin: 4px 2px;
+				cursor: pointer;
+				background-color: white;
+				color: black;
+				border: 2px solid #008CBA;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			total={{total}}
+			<btn_counter v-on:incr='incrtotal'></btn_counter>
+			<btn_counter v-on:incr='incrtotal'></btn_counter>
+		</div>
+		<script>
+			Vue.component('btn_counter', {
+				template: '<button class="btn" type="button" @click="add">{{count}}</button>',
+				data: function() {
+					return {
+						count: 0
+					}
+
+				},
+				methods: {
+					add() {
+						this.count++;
+						this.$emit('incr')
+					}
+				}
+			})
+			var vm = new Vue({
+				el: '#app',
+				data: {
+					total: 0
+				},
+				methods: {
+					incrtotal() {
+						this.total += 1
+					}
+				},
+			})
+		</script>
+	</body>
+</html>

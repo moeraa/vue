@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>vue v-for</title>
+		<script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			全局组件：<global_component></global_component>
+			局部组件：<child_element></child_element>
+			静态props：<people name="moer">bb</people>
+			动态props： 父组件：<input style="font-size: inherit;color: #FF0000;" type="text" name="dynamic_props" v-model="parents" />
+			<br>
+			子组件：<dynamic_child v-bind:message="parents"></dynamic_child>
+			
+			
+			v-for:<ol>
+				<dynamic_for v-for="item in list" v-bind:aa="item"></dynamic_for>
+			</ol>
+		</div>
+		<script>
+			//局部组件
+			var child_component = {
+				template: '<h1>child component</h1>'
+			}
+			//全局组件
+			Vue.component('global_component', {
+				template: '<h1>global component</h1>'
+			})
+			//props: 是父组件 用来传递数据的一个自定义属性
+			Vue.component('people', {
+				props: ['name'],
+				template: '<h1 style="color:red">{{ name }} </h1>'
+			})
+			//动态props:
+			Vue.component('dynamic_child', {
+				props: ['message'],
+				template: '<h1 style="color:goldenrod"> {{message}}</h1>'
+			})
+			//重复组件
+			Vue.component('dynamic_for', {
+				props: ['aa'],
+				template: '<li style="color:red;font-size: 50px;"> {{aa.text}}</li>'
+			})
+			var vm = new Vue({
+				el: '#app',
+				data: {
+					parents: '父组件',
+					list: [{
+							text: 'A'
+						},
+						{
+							text: 'B'
+						}
+					]
+				},
+				components: {
+					'child_element': child_component
+				}
+			})
+		</script>
+	</body>
+</html>

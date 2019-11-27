@@ -28,5 +28,6 @@
 - 7.v-for中使用key属性，（只接受string/number）作为唯一key
 - 8.v-model 只能应用于 表单元素
 - 9.在vue中，绑定样式的两种方式：v-bind.class 和v-bind.style
+- 10.vue中watch 的作用是监控一个值的变化，并调用因变化需要执行方法，可以通过watch改变关联的状态
 
 		

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>vue v-for</title>
+		<script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
+	</head>
+	<body>
+		<div id="app" v-moer_gz:hello.foo="{ color: 'green', text: '菜鸟教程!'}">
+			<p>页面载入时 自动获取焦点</p>
+			<input v-moer_focus>
+		</div>
+		<script>
+			//自定义组件
+			// Vue.directive('moer_focus',{
+			// 	inserted:function(el){
+			// 		el.focus()
+			// 	}
+			// })
+			//钩子函数
+			Vue.directive('moer_gz',{
+				bind:function(el,binding,vnode){
+					var s = JSON.stringify
+					el.innerHTML=
+					'指令名name : ' + s(binding.name )+ '<br>' +
+					'指令的值value :' + s(binding.value.text )+'<br>' +
+					'绑定值的表达式或者变量名expression : ' + s(binding.expression) +'<br>'+
+					'传给指令的参数arg : ' + s(binding.arg )+ '<br>'+
+					'一个修饰符的对象modifiers ： ' + s(binding.modifiers) +'<br>' +
+					'vue编译是生成的虚拟节点vnode key ： ' + Object.keys(vnode).join(',');
+					// el.innerHTML=binding.value.text;
+					el.style.backgroundColor=binding.value.color
+				}
+			})
+			//局部组件
+			var vm = new Vue	({
+				el: '#app',
+				data:{
+					 message:'---'
+				},
+				directives:{
+					moer_focus:{
+						inserted:function(el){
+							el.focus()
+						}
+					}
+				}
+			})
+		</script>
+	</body>
+</html>
