@@ -1,6 +1,6 @@
 <template>
-    <div class="account">
-        <p>this is account</p>
+    <div >
+        <p>this is login</p>
     </div>
 </template>
 

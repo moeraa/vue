@@ -1,10 +1,42 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
+    <meta charset="utf-8">
+    <title>vue study</title>
+    <script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+
 </head>
 <body>
-$END$
+<div id="app">
+    <router-view></router-view>
+    <router-link to="/login">login</router-link>
+    <router-link to="/register">register</router-link>
+</div>
+<script>
+    var login = {
+        template: '<h1>this is login component</h1>'
+    };
+    var register = {
+        template: '<h1>this is register component</h1>'
+    };
+    var router = new VueRouter({
+        routes: [
+
+            {path: '/', redirect: '/login'},
+            {path: '/login', component: login},
+            {path: '/register', component: register},
+
+
+        ],
+        linkActiveClass: 'myactive'
+    });
+    var vm = new Vue({
+        el: '#app',
+        data: {},
+        methods: {},
+        router
+    })
+</script>
 </body>
 </html>

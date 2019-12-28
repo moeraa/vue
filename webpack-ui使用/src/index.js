@@ -1,10 +1,23 @@
 import Vue from 'vue'
 
 import VueRouter from 'vue-router'
+
 Vue.use(VueRouter);
 import app from './index/app.vue'
 //自定义导入路由
 import router from './router.js'
+//所有的组件都导入来
+//导入Mint-UI
+// import MintUI from 'mint-ui'
+// //这里可以省略 node_module 目录
+// import 'mint-ui/lib/style.css'
+// //使用mint-ui ，将所有的组件，注册为全局的组件
+// Vue.use(MintUI);
+//按需导入
+import { Button, Cell } from 'mint-ui'
+Vue.component(Button.name,Button);
+//导入MUI样式库
+import './../lib/mui/dist/css/mui.min.css'
 
 var vm = new Vue({
     el: "#app",

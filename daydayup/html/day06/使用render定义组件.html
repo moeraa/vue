@@ -7,21 +7,24 @@
 </head>
 <body>
 <div id="app">
-    <login></login>
+    <p>this is render</p>
+    <!--    <login></login>-->
 </div>
 <script>
     var login = {
-        template: "<h1>this is login component</h1>"
+        template: "<h1>this is login render （替换整个app）</h1>"
     };
     var vm = new Vue({
         el: '#app',
-        data: {
-        },
-        methods: {
-        },
+        data: {},
+        methods: {},
 
-        components:{
-            login
+        // components:{
+        //     login
+        // }
+        render: function (createElement) {
+            //return 的内容会替换 el中指定的那个容器
+            return createElement(login)
         }
     })
 </script>

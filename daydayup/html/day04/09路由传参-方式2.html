@@ -8,19 +8,19 @@
 </head>
 <body>
 <div id="app">
-	<router-view></router-view>
-<!--	如果path中含有查询字符串，将不会影响该path的匹配-->
-    <router-link to="/login?id=10"> login</router-link>
-    <router-link to="/register?id=10&name=chen"> register</router-link>
+    <router-view></router-view>
+    <!--	如果path中含有查询字符串，将不会影响该path的匹配-->
+    <router-link to="/login/12/lisi"> login</router-link>
+    <router-link to="/register"> register</router-link>
 </div>
 <script>
     //组件的模板对象
     var login = {
-        template: "<h1>登录 --{{this.$route.query.id}}</h1>",
-		//组件的钩子函数
-		created(){
-			console.log()
-		}
+        template: "<h1>登录--{{this.$route.params.id}}----{{this.$route.params.name}}</h1>",
+        //组件的钩子函数
+        created() {
+            console.log(this.$route.params.id)
+        }
 
     };
     //这是组件引用对象，只能用 html标签来使用
@@ -28,12 +28,12 @@
     // 	template:"<h1>登录组件</h1>"
     // });
     var register = {
-        template: "<h1>注册--{{this.$route.query.id}} --- {{this.$route.query.name}}</h1>"
+        template: "<h1>注册</h1>"
     };
     var routerobj = new VueRouter({
         routes: [
-            {path: '/', redirect: '/login'},
-            {path: '/login', component: login},
+            {path: '/', redirect: '/login/:id/:name'},
+            {path: '/login/:id/:name', component: login},
             {path: '/register', component: register},
         ]
     });

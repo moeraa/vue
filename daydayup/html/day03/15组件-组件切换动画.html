@@ -4,6 +4,19 @@
     <meta charset="utf-8">
     <title>vue study</title>
     <script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
+    <style>
+        .v-enter,
+        .v-leave-to {
+            opacity: 0;
+            transform: translateX(150px);
+
+        }
+
+        .v-enter-active,
+        .v-leave-active {
+            transition: all 1s ease;
+        }
+    </style>
 </head>
 <body>
 <template id="login">
@@ -17,11 +30,14 @@
     </div>
 </template>
 <div id="app">
-    <a href=""  @click.prevent="comName='login'"> 登陆</a>
-    <a href=""  @click.prevent="comName='register'"> 注册</a>
+    <a href="" @click.prevent="comName='login'"> 登陆</a>
+    <a href="" @click.prevent="comName='register'"> 注册</a>
     <!--    vue 提供了 component 来展示对应名称的组件-->
     <!--   component 是个占位符，：is属性，可以用来指定展示的组件名称 -->
-    <component :is="comName"></component>
+<!--    mode 属性，设置组件切换的模式-->
+    <transition model="out-in">
+        <component :is="comName"></component>
+    </transition>
 </div>
 <script>
     Vue.component('login', {
@@ -40,9 +56,8 @@
     });
     var vm = new Vue({
         el: '#app',
-        data: {comName:'login'},
-        methods: {
-        }
+        data: {comName: 'login'},
+        methods: {}
     })
 </script>
 </body>

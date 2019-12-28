@@ -4,105 +4,32 @@
     <meta charset="utf-8">
     <title>vue study</title>
     <script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
-    <!--    v-resource依赖 vue，因此引入的时候有顺序-->
-    <!--    this.$http.jsonp-->
-    <!--    https://github.com/pagekit/vue-resource/blob/HEAD/docs/http.md-->
-    <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>
-    <link rel="stylesheet" type="text/css" href="../../lib/bootstrap.css"/>
+    <!--    animatecss 第三方-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+    <!--    入场bounceIn 离场 bounceOut-->
 </head>
 <body>
 <div id="app">
-    <div class="panel panel-primary">
-        <div class="panel-heading">
-            <h3 class="panel-title">添加品牌</h3>
-        </div>
-        <div class="panel-body form-inline">
-            <label>
-                name: <input type="text" v-model="name" class="form-control">
-            </label>
-            <input type="button" value="添加" @click="add" class="btn btn-primary">
-
-        </div>
-    </div>
-    <table class="table table-hover table-striped">
-        <thead>
-        <tr>
-            <th>id</th>
-            <th>name</th>
-            <th>ctime</th>
-            <th>operation</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr v-for="item in list" :key="item.id">
-            <td>{{item.id}}</td>
-            <td>{{item.name}}</td>
-            <td>{{item.ctime}}</td>
-            <td><a href="" @click.prevent="del(item.id)"> 删除</a></td>
-        </tr>
-        </tbody>
-    </table>
+    <!--    需求：点击按钮，让h3 显示，再点击让h3 隐藏-->
+    <input type="button" value="toggle" @click="flag=!flag">
+    <!--    <transition enter-active-class=" animated bounceIn" leave-active-class="animated bounceOut">-->
+    <!--        <h3 v-if="flag"> 这是个h3</h3>-->
+    <!--    </transition>-->
+    <!--    使用：duration="毫秒" 来统一设置入场和离场的动画时长-->
+    <!--    <transition enter-active-class="  bounceIn" leave-active-class=" bounceOut" :duration="200">-->
+    <!--        <h3 v-if="flag" class="animated"> 这是个h3</h3>-->
+    <!--    </transition>-->
+    <transition enter-active-class="bounceIn" leave-active-class="bounceOut" :duration="{enter:200,leave:600}">
+        <h3 v-if="flag" class="animated"> 这是个h3</h3>
+    </transition>
 </div>
 <script>
-    //注意：如果我们使用全局配置的 请求接口  根域名，每次单独发送http请求时，请求的url路径，应该以相对路径来开头，前面不能有 /  ，否则 不会启用根路径拼接
-    Vue.http.options.root = 'http://www.liulongbin.top:3005/';
-    //全局配置emulateJSON
-    Vue.http.options.emulateJSON = true;
     var vm = new Vue({
         el: '#app',
         data: {
-            name: '',
-            list: [{id: 1, name: "奔驰", ctime: new Date()}, {id: 2, name: "宝马", ctime: new Date()}]
+            flag: true
         },
-        //获取列表地址: http://www.liulongbin.top:3005/api/getprodlist/
-        //添加地址: http://www.liulongbin.top:3005/api/addproduct/
-        //删除地址: http://www.liulongbin.top:3005/api/delproduct/
-        created() {//当vm实例的data 和methods 初始化完毕之后，vm实例会自动执行
-            this.getprodlist()
-        },
-        methods: {
-            add() {
-                var item = {name: this.name};
-                var config = {emulateJSON: true};//以普通表单格式，提交数据，有全局配置 替代
-                this.$http.post('api/addproduct/', item, config).then(result => {
-                    console.log(result.body);
-                    var result = result.body;
-                    if (result.status == 0) {
-                        this.getprodlist();
-                        this.name = '';
-                    } else {
-                        alert('获取数据失败')
-                    }
-                })
-            },
-            getprodlist() {
-                //获取所有品牌的列表
-                //分析：
-                //1.由于已经导入来vue-resource这个包，所以可以直接通过this$http.get()获取请求
-                this.$http.get('api/getprodlist').then(result => {
-                    console.log(result.body);
-                    var result = result.body;
-                    //获取列表的值，
-                    //如果status =0 成功 否则 失败
-                    //获取的结果 赋值给list
-                    if (result.status == 0) {
-                        this.list = result.message
-                    } else {
-                        alert('获取数据失败')
-                    }
-                });
-            },
-            del(id) {
-                this.$http.get("api/delproduct/" + id).then(result => {
-                    var result = result.body;
-                    if (result.status == 0){
-                        this.getprodlist();
-                    }else {
-                       alert('删除失败')
-                    }
-                })
-            }
-        }
+        methods: {}
     })
 </script>
 </body>

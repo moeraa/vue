@@ -1,10 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
+    <meta charset="utf-8">
+    <title>vue study</title>
+    <script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
 </head>
 <body>
-$END$
+<div id="app">
+    <!--    如果要使用组件，直接把组件的名称，以html标签的形式 即可-->
+    <!--    如果使用Vue.component使用驼峰命名（myCom1），引用是 要用 - 来表示（my-com1）-->
+    <my-com1></my-com1>
+</div>
+<script>
+    //1.1使用 Vue.extend 创建全局的Vue组件
+    // var com1 = Vue.extend({
+    //     template: '<h3>这是个Vue.extend创建的组件</h3>' //通过template属性，指定组件要展示的html结构
+    // });
+    // 1.2 使用Vue.component('组件名称'，扩展出来的组件模版对象)
+    // Vue.component('myCom1', com1);
+    //Vue.component 第一个参数：组件名称 引用时 直接使用使用标签 来引入
+    //第二个参数：Vue.extend 创建的模版， 其中的template 就是组件将来要展示的html内容
+    Vue.component('myCom1', Vue.extend({
+        template: '<h3>这是个Vue.extend创建的组件</h3>' //通过template属性，指定组件要展示的html结构
+    }));
+    var vm = new Vue({
+        el: '#app',
+        data: {},
+        methods: {}
+    });
+</script>
 </body>
 </html>

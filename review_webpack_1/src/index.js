@@ -13,7 +13,7 @@ import Vue from 'vue'
 // };
 
 //引入 vue 组件文件
-import login from './login.vue'
+import login from './index/login.vue'
 //1.默认webpack 无法打包.vue 文件
 //2.安装 vue-loader ：npm i vue-loader vue-template-compiler -D
 //3.新增一个 loader 配置项： {test:/\.vue$/,use:'vue-loader'}
@@ -29,3 +29,8 @@ var vm = new Vue({
     render:c=>c(login)
 
 });
+
+import m1,{chen,age as agesss} from './test.js'
+
+console.log(m1.name+ "  "+ m1.age);
+console.log(chen +" age "+ agesss)

@@ -1,0 +1,20 @@
+html, body {
+  .box {
+    width: 220px;
+    height: 120px;
+    background-color: lightblue;
+    //默认webpack 处理不了url  不管是图片还是字体
+    background: url("../images/go.jpeg");
+    background-size: cover;
+  }
+
+  .box1 {
+    width: 220px;
+    height: 120px;
+    background-color: lightcoral;
+    //默认webpack 处理不了url  不管是图片还是字体
+    background: url("../images1/go.jpg");
+    background-size: cover;
+  }
+
+}

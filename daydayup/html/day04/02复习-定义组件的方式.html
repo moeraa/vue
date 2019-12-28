@@ -1,10 +1,43 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
+    <meta charset="utf-8">
+    <title>vue study</title>
+    <script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
 </head>
 <body>
-$END$
+<div id="app">
+    <login></login>
+    <login1></login1>
+    <template_login></template_login>
+</div>
+<template id="tmpl">
+    <div>
+        <h1> 外部模版1234</h1>
+    </div>
+</template>
+<script>
+    // <!--定义组件的时候，如果要定义全局组件，Vue.component('component name ',{})-->
+    //通过对象字面量形式，定义一个组件模板
+    var template_login={
+        template: '<h1>字面量1234</h1>'
+    };
+    Vue.component('login', {
+        template: '#tmpl'
+    });
+    //
+    Vue.component('login1',template_login);
+
+    var vm = new Vue({
+        el: '#app',
+        data: {},
+        methods: {},
+        components:{
+            // '组件模板对象':组件模板对象
+            // 'login_private':template_login
+            template_login      //等价于  'template_login':template_login
+        }
+    })
+</script>
 </body>
 </html>
