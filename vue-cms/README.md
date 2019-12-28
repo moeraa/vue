@@ -25,4 +25,15 @@
   2. 使用vue-resource的this.$http.get 获取数据
   3. 获取的数据，要保存到data身上
   4. 使用v-for 渲染每个item项 注意组件使用使用v-for必须要指定key
+## 改造九宫格的样式
+  ```发现打包后html里面，img的src为[object Module]，
+  {
+                  // limit >= 图片大小（byte） 可以转化为base64
+                  // limit <= 图片大小（byte） 不可以转化为base64 ，会修改图片的名字，hash  保证文件名唯一
+                  // name 可以使用name参数进行修改
+                  test: /\.(jpg|jpeg|png|gif|bmp)$/, use: 'url-loader?limit=1&name=[hash:8]-[name].[ext]&esModule=false'
+                  // 图片路径  处理url 可以传参，修改相关属性,
+              },
+```
+
 

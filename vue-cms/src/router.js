@@ -7,10 +7,11 @@ import MemberContainer from './components/tabbar/MemberContainer/MemberContainer
 
 var router = new VueRouter({
     routes: [
-        {path:'/home',component:HomeContainer},
-        {path:'/member',component:MemberContainer},
-        {path:'/shopcar',component:ShopCarContainer},
-        {path:'/search',component:SearchContainer},
+        {path: "/", redirect: '/home'},
+        {path: '/home', component: HomeContainer},
+        {path: '/member', component: MemberContainer},
+        {path: '/shopcar', component: ShopCarContainer},
+        {path: '/search', component: SearchContainer},
     ],
     linkActiveClass: 'mui-active'//覆盖默认的路由高亮的类， 默认是 "router-link-active "
 

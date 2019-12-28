@@ -29,7 +29,8 @@ module.exports = {
                 // limit >= 图片大小（byte） 可以转化为base64
                 // limit <= 图片大小（byte） 不可以转化为base64 ，会修改图片的名字，hash  保证文件名唯一
                 // name 可以使用name参数进行修改
-                test: /\.(jpg|jpeg|png|gif|bmp)$/, use: 'url-loader?limit=1&name=[hash:8]-[name].[ext]'// 图片路径  处理url 可以传参，修改相关属性,
+                test: /\.(jpg|jpeg|png|gif|bmp)$/, use: 'url-loader?limit=1&name=[hash:8]-[name].[ext]&esModule=false'
+                // 图片路径  处理url 可以传参，修改相关属性,
             },
             {
                 test: /\.(ttf|eot|woff|woff2|svg)$/, use: 'url-loader'//处理字体的loader
