@@ -17,23 +17,15 @@
     </div>
 </template>
 <div id="app">
-    <a href=""  @click.prevent="flag=true"> 登陆</a>
-    <a href=""  @click.prevent="flag=false"> 注册</a>
-<!--    //组件切换，可以使用v-if v-else-->
-    <login v-if="flag"></login>
-    <register v-else="flag"></register>
+    <a href=""  @click.prevent="comName='login'"> 登陆</a>
+    <a href=""  @click.prevent="comName='register'"> 注册</a>
+    <!--    vue 提供了 component 来展示对应名称的组件-->
+    <!--   component 是个占位符，：is属性，可以用来指定展示的组件名称 -->
+    <component :is="comName"></component>
 </div>
 <script>
     Vue.component('login', {
         template: '#login',
-        data: function () {
-            return {count: 0}
-        },
-        methods: {
-            increment() {
-                this.count++
-            }
-        }
     });
     Vue.component('register', {
         template: '#register',
@@ -48,8 +40,9 @@
     });
     var vm = new Vue({
         el: '#app',
-        data: {flag: true},
-        methods: {}
+        data: {comName:'login'},
+        methods: {
+        }
     })
 </script>
 </body>

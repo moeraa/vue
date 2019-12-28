@@ -4,45 +4,41 @@
     <meta charset="utf-8">
     <title>vue study</title>
     <script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
-    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
-
 </head>
 <body>
 <div id="app">
-    <router-view></router-view>
-    <router-link to="/login">login</router-link>
-    <router-link to="/register">register</router-link>
+    <input type="text" v-model="first_name">+
+    <input type="text" v-model="middle_name">+
+    <input type="text" v-model="last_name">=
+    <input type="text" v-model="full_name">
+    {{full_name}}
+    {{full_name}}
+    {{full_name}}
 </div>
 <script>
-    var login = {
-        template: '<h1>this is login component</h1>'
-    };
-    var register = {
-        template: '<h1>this is register component</h1>'
-    };
-    var router = new VueRouter({
-        routes: [
-
-            {path: '/', redirect: '/login'},
-            {path: '/login', component: login},
-            {path: '/register', component: register},
-
-
-        ],
-        linkActiveClass: 'myactive'
-    });
     var vm = new Vue({
         el: '#app',
-        data: {},
+        data: {
+            first_name: '',
+            middle_name: '',
+            last_name: '',
+        },
         methods: {},
-        router,
-        watch: {
-            '$route.path': function (newValue,oldValue) {
-            	if (newValue =='/login'){
-					console.log('welcome login ')
-				} else if (newValue =='/register'){
-					console.log('welcome register')
-				}
+        // watch: {
+        //     'first_name': function (newValue) {
+        //         this.full_name = newValue + '-' + this.last_name
+        //     },
+        //     'last_name': function (newValue) {
+        //         this.full_name = this.first_name + '-' + newValue
+        //     }
+        //
+        // }
+        computed: {
+            //在 computed中，可以定义一些属性，这些属性 称为计算属性，这些计算属性，本质是一个方法。只不过是在使用的时候，是把它的名称属性来使用，并不会
+            //像调用方法那样
+            'full_name': function () {
+                console.log('ok');
+                return this.first_name + '- ' + this.middle_name + '-' + this.last_name
 
             }
         }

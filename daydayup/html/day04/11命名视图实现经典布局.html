@@ -1,23 +1,78 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<title>vue study</title>
-		<script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
-	</head>
-	<body>
-		<div id="app">
-		</div>
-		<script>
-			var vm = new Vue({
-				el: '#app',
-				data: {
+<head>
+    <meta charset="utf-8">
+    <title>vue study</title>
+    <script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+    <style>
+		html,body{
+			margin: 0;
+			padding: 0;
+		}
+		h1{
+			margin: 0;
+			padding: 0;
+			font-size: 16px;
+		}
+        .header {
+            background-color: lightgoldenrodyellow;
+        }
 
-				},
-				methods: {
+        .container {
+            display: flex;
+            height: 600px;
+        }
 
-				}
-			})
-		</script>
-	</body>
+
+        .left {
+            flex: 2;
+            background-color: lightgreen;
+        }
+
+        .main {
+            flex: 8;
+            background-color: lightpink;
+        }
+    </style>
+
+</head>
+<body>
+<div id="app">
+    <router-view></router-view>
+    <div class="container">
+        <router-view name="left"></router-view>
+        <router-view name="main"></router-view>
+    </div>
+
+</div>
+<script>
+    var header = {
+        template: '<h1 class="header"> this header</h1>'
+    };
+    var leftbBox = {
+        template: '<h1 class="left"> this leftBox</h1>'
+    };
+    var mainBox = {
+        template: '<h1 class="main"> this mainBox</h1>'
+    };
+    var routeObj = new VueRouter({
+        routes: [{
+            path: '/',
+            components: {
+                'default': header,
+                'left': leftbBox,
+                'main': mainBox
+            }
+        }]
+
+    });
+    var vm = new Vue({
+        el: '#app',
+        data: {},
+        methods: {},
+        router: routeObj
+    })
+</script>
+</body>
 </html>

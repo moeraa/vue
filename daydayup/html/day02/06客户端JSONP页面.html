@@ -2,9 +2,19 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <title>Title</title>
 </head>
 <body>
-$END$
+<script>
+    function show() {
+        console.log('ok')
+    }
+</script>
+<!--http://127.0.0.1:8080的 getfunction 返回一个合法的js代码，  -->
+<!--可以通过动态的创建script标签形式，把srcipt标签的src属性，执行数据接口的地址，因为script标签不存在跨域的限制，这样数据获取方式，称作JSONP，此方法值支持get方法-->
+<!--getfunction（）{
+return 'show()'
+}-->
+<script src="http://127.0.0.1:8080/getfunction?callback=show"></script>
 </body>
 </html>

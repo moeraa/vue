@@ -1,10 +1,53 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
+    <meta charset="utf-8">
+    <title>vue study</title>
+    <script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
+    <!--    v-resource依赖 vue，因此引入的时候有顺序-->
+    <!--    this.$http.jsonp-->
+    <!--    https://github.com/pagekit/vue-resource/blob/HEAD/docs/http.md-->
+    <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>
 </head>
 <body>
-$END$
+<div id="app">
+    <input type="button" value="get请求" @click="getInfo">
+    <input type="button" value="post请求" @click="postInfo">
+    <input type="button" value="jsonp请求" @click="jsonpInfo">
+</div>
+<script>
+    var vm = new Vue({
+        el: '#app',
+        data: {},
+        methods: {
+            //发送get请求 通过.then 来获取结果,通过result.body来获取数据
+            getInfo() {
+                this.$http.get('http://172.16.52.181/v2/ad/get_domains?&_=1575028724426&account_id=-1&uid=-1&S=undefined').then(function (result) {
+                    console.log(result.ok);
+                });
+            },
+            postInfo() {
+                //手动发起的post请求 默认没有表单格式，有的服务器处理不了
+                var config = {emulateJSON: true}; //设置 提交的内容为表单格式
+                this.$http.post("http://172.16.52.181/v2/user/login?account_id=-1&uid=-1&S=undefined", {
+                    user_slug: 'admim',
+                    password: '123456',
+                    bind_type: false
+                }, config).then(function (result) {
+                    console.log(result.body)
+                })
+            },
+            jsonpInfo(){
+                // 手动发起的jsonP请求
+                this.$http.jsonp("http://vue.studyit.io/api/jsonp").then(result=>{
+                    console.log(result)
+                })
+            }
+        }
+    })
+</script>
 </body>
 </html>
+
+
+

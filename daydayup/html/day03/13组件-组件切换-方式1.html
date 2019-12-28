@@ -6,28 +6,37 @@
     <script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
 </head>
 <body>
-<template id="tmpl">
+<template id="login">
     <div>
-        <input type="button" value="+1" @click="increment">
-        <h3>{{count}}</h3>
+        <h3>登陆组件</h3>
+    </div>
+</template>
+<template id="register">
+    <div>
+        <h3>注册组件</h3>
     </div>
 </template>
 <div id="app">
-    <counter></counter>
-    <hr>
-    <counter></counter>
-    <hr>
-    <counter></counter>
-    <hr>
+    <a href=""  @click.prevent="flag=true"> 登陆</a>
+    <a href=""  @click.prevent="flag=false"> 注册</a>
+<!--    //组件切换，可以使用v-if v-else-->
+    <login v-if="flag"></login>
+    <register v-else="flag"></register>
 </div>
 <script>
-    //1.组件可以有data
-    //2.组件的data和实例中的data不一样，实例中的data可以是一个对象，但是组件中的data是个方法，
-    //3.组件中的data除了必须是一个方法之外，这个方法内部，必须返回一个对象才行
-    //4.组件中的data数据，使用方式和实例中的data使用方式完全一致
-    var dataObj = {count: 0};
-    Vue.component('counter', {
-        template: '#tmpl',
+    Vue.component('login', {
+        template: '#login',
+        data: function () {
+            return {count: 0}
+        },
+        methods: {
+            increment() {
+                this.count++
+            }
+        }
+    });
+    Vue.component('register', {
+        template: '#register',
         data: function () {
             return {count: 0}
         },
@@ -39,7 +48,7 @@
     });
     var vm = new Vue({
         el: '#app',
-        data: {},
+        data: {flag: true},
         methods: {}
     })
 </script>

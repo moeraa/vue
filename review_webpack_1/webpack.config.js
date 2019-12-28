@@ -39,7 +39,16 @@ module.exports = {
                 test: /\.js$/, use: 'babel-loader', exclude: /node_module/   //配置babel 处理高级的ES语法
 
             },
+            {
+                test: /\.vue$/, use: 'vue-loader'   //配置vue-loader
+
+            },
 
         ]
+    },
+    resolve: {
+        // alias: { //修改vue导入 import 包的路径 别名
+        //     "vue$": "vue/dist/vue.js"
+        // }
     }
 };

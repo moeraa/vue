@@ -7,32 +7,67 @@
 </head>
 <body>
 <div id="app">
-<!-- 过滤器调用的格式:{{name | 过滤器的名称}}}-->
-<!--    过滤器链，支持传参-->
-    {{ msg | msgFormat('moer',('123'))|test}}
+    <h3 id="h3">{{msg}}</h3>
+    <input type="button" value="modify" @click="msg='No'">
 </div>
 <script>
-    //定义一个vue全局过滤器 名字为msgFormat
-    Vue.filter('msgFormat',function (msg,arg,arg2) {
-        //正则
-        return msg.replace(/纯洁/g,arg+arg2)
-    });
-    Vue.filter('test',function (msg) {
-        return msg+'111111111111'
-    });
-    var vm = new Vue	({
+    //1.表示开始创建一个Vue对象
+    //2.初始化一个空的vue对象，这个时候，这个对象身上，只有默认的一些生命周期函数和默认的时间，
+    //3.beforeCreate() 是第一个生命周期函数，表示实例创建出来之后会被创建，注意：在beforeCreate生命周期函数执行的时候，data和methods中的数据都还没有初始化。
+    //4.created()  是第一个生命周期的函数，这是 data 和methods中的数据已经初始化完成
+    //5.-----此处有编译模板。。。
+    //6.beforeMount()//第三个生命周期的函数，表示模板已经在内中编译完成，但是尚未把模板渲染到页面中
+    //7.------替换  5.条目中 编译好的模板
+    //8.mounted()//第四个生命周期函数，表示内存中的模板，已经真实的挂在到来页面中，用户已经可以看到渲染好的页面了,//注意：mounted是实例创建期间中，最后一个周期函数，当执行完mounted方法就表示，实例已经被完全创建好了，此时如果没有其他操作的话，这个实例就静静的一动不动。
+    //9.运行中：mounted --- mounted 动作中，当数据发生变化中，将会调用beforeUpdate() 和 updated()方法
+    //10.beforeUpdate()
+    //11.虚拟DOM重新渲染并应用更新：此处是先根据data中最新的数据，在内存中，重新渲染出来一份最新的内存DOM树，重新渲染的这个树被更新之后，会把最新的DOM树，重新渲染到真实页面中去，这时候，就完成了数据从data（model）到view的更新
+    //updated()该事件执行之后，页面的data数据已经保持同步了，都是最新的
+
+
+    var vm = new Vue({
         el: '#app',
         data: {
-            msg:'我是个纯洁的人纯洁的人啊努力的人啊'
+            msg: 'ok'
         },
         methods: {
+            show() {
+                console.log("invoke show")
+            }
+        },
+        //
+        beforeCreate() {//第一个生命周期函数
+            // console.log(this.msg);--undefined
+            // this.show()---is not a function
+            //注意：在beforeCreate生命周期函数执行的时候，data和methods中的数据都还没有初始化。
+        },
+        //
+        created() {//第二个生命周期函数，如果要调用methods中的方法，或者使用data中数据，最早也是在created中操作。
+            console.log("" + this.msg);
+            this.show()
+        },
+        beforeMount() {//第三个生命周期的函数，表示模板已经在内中编译完成，但是尚未把模板渲染到页面中
+            console.log(document.getElementById('h3').innerText)//{{msg}} --
+            //在此方法执行的时候，页面中元素，还未真正的替换过来，只是之前的一起模板字符串
+        },
 
+        mounted() { //第四个生命周期函数，表示内存中的模板，已经真实的挂在到来页面中，用户已经可以看到渲染好的页面来
+            //注意：mounted是实例创建期间中，最后一个周期函数，当执行完mounted方法就表示，实例已经被完全创建好了，此时如果没有其他操作的话，这个实例就静静的一动不动。
+            console.log("mounted=" + document.getElementById('h3').innerText)
+        },
+
+        //运行中的两个事件 beforeUpdate() and Updated()
+        beforeUpdate() {// 这时候，表示我们界面还没有更新，但是数据已经被更新了
+            console.log("beforeUpdate() 界面上的元素内容 =" + document.getElementById('h3').innerText);
+            console.log('data 中的msg 数据是=' + this.msg);
+            //得到的结论 当执行 beforeUpdate的时候，页面中显示的数据还是旧的数据 ok，但是data的数据是最新，页面尚未和最新的数据进行同步
+        },
+        updated() {
+            console.log("Update() 界面上的元素内容 =" + document.getElementById('h3').innerText);
+            console.log('data 中的msg 数据是=' + this.msg);
+            //该事件执行之后，页面的data数据已经保持同步了，都是最新的
         }
-    });
-    //： 过滤器调用的格式{{name | 过滤器的名称}}}
-    //：过滤器中的 function中第一个参数，已经被规定死了，永远都是 过滤器 管道符前面传递过来的数据
-    Vue.filter('过滤器的名称',function (data) {
-        return data +'123';
+
     })
 </script>
 </body>

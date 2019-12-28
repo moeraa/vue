@@ -1,23 +1,89 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<title>vue study</title>
-		<script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
-	</head>
-	<body>
-		<div id="app">
-		</div>
-		<script>
-			var vm = new Vue({
-				el: '#app',
-				data: {
+<head>
+    <meta charset="utf-8">
+    <title>vue study</title>
+    <script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
+		<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+    <style>
 
-				},
-				methods: {
+        .router-link-active, .myActive {
+            /*router-link 的默认 class 可以修改， 在vue-router的构造函数中，修改:linkActiveClass*/
+            color: green;
+            font-size: 80px;
+            background-color: red;
+            font-weight: 800;
+            font-style: italic;
+            text-decoration: underline;
+        }
+		.v-enter,.v-leave-to{
+			opacity: 0;
+			transform: translateX(100px);
+		}
+		.v-enter-active,.v-leave-active{
+			transition: all 1s ease;
+		}
+    </style>
+</head>
+<body>
+<!--	1. 引入包
+2.创建一个路由对象，
+3.当导入v-router包之后，在window 全局对象中有存在一个路由构造函数，，VueRouter
+4.在 new VueRouter 对象中，可以传递一个配置对象-->
+<div id="app">
+    <!--	router-view 是v-router中提供的元素，用作占位符，将来 路由规则匹配到的组件，
+    就会展示到这个router-view中-->
+    <transition mode="out-in">
+        <router-view></router-view>
+    </transition>
 
-				}
-			})
-		</script>
-	</body>
+    <!--	<a href="#/login">login</a>-->
+    <!--	<a href="#/register">register</a>-->
+    <!--	v-router 默认渲染为a 标签 可以通过tag 来做改变-->
+    <router-link to="/login" tag="span"> login</router-link>
+    <router-link to="/register"> register</router-link>
+</div>
+<!--	1. 引入包
+2.创建一个路由对象，
+3.当导入v-router包之后，在window 全局对象中有存在一个路由构造函数，，VueRouter
+4.在 new VueRouter 对象中，可以传递一个配置对象
+5.路由规则对象，注册在vm实例上，用来监听url地址的变化，然后展示对应的组件
+6.在对应的vue控制的区域内 使用 router-view 占位；router-view 是v-router中提供的元素，用作占位符，将来 路由规则匹配到的组件，
+    就会展示到这个router-view中
+-->
+<script>
+    //组件的模板对象
+    var login = {
+        template: "<h1>登录组件</h1>"
+    };
+    //这是组件引用对象，只能用 html标签来使用
+    // Vue.component('login',{
+    // 	template:"<h1>登录组件</h1>"
+    // });
+    var register = {
+        template: "<h1>注册组件</h1>"
+    };
+    var vueRouter = new VueRouter({
+        //route 这个配置对象 表示【路由匹配规则】的意思
+        routes: [//路由匹配规则
+            //每个路由规则 都是一个对象，这个规则对象有两个必须的属性
+            //属性一：path 表示监听那个路由链接地址
+            //属性二：component 表示 如果路由匹配到了path，则展示component对应的组件
+            //component的值 必须是组件的模板对象 而不是组件的引用对象
+            // {path: '/', component: login}, //不推荐
+            {path: '/', redirect: '/login'},//这里的redirect和node中的 不是一个东西
+            {path: '/login', component: login},
+            {path: '/register', component: register}
+        ],
+        linkActiveClass: 'myActive'
+    });
+    var vm = new Vue({
+        el: '#app',
+        data: {},
+        methods: {},
+        router: vueRouter//路由规则对象，注册在vm实例上，用来监听url地址的变化，然后展示对应的组件
+
+    })
+</script>
+</body>
 </html>

@@ -1,52 +1,117 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<title>vue v-for</title>
-		<script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
-		<link rel="stylesheet" type="text/css" href="../../lib/bootstrap.css" />
-	</head>
-	<body>
-		<div id="app">
-			<!-- 不需要使用jquery -->
-			<table class="table table-bordered table-hover">
-				<thead>
-					<tr>
-						<th>Id</th>
-						<th>name</th>
-						<th>Ctime</th>
-						<th>Operation</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr v-for="item in list" :key="item.id">
-						<td>{{item.id}}</td>
-						<td v-text="item.name"></td>
-						<td>{{item.ctime}}</td>
-						<td><a href=""> 删除</a></td>
-					</tr>
-				</tbody>
+<head>
+    <meta charset="utf-8">
+    <title>vue v-for</title>
+    <script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../lib/bootstrap.css"/>
+</head>
+<body>
+<div id="app">
+    <!-- 不需要使用jquery -->
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">添加</h3>
+        </div>
+        <div class="panel-body">
+            <label>
+                id:<input type="text" class="form-control" v-model="id">
+            </label>
+            <label>
+                name:<input type="text" class="form-control" v-model="name">
+            </label>
+            <input type="button" value="添加" class="btn btn-primary" @click="add">
+            <label>
+                search:<input type="text" class="form-control" v-model="keywords">
+            </label>
+        </div>
+    </div>
+    <table class="table table-bordered table-hover">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>name</th>
+            <th>Ctime</th>
+            <th>Operation</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!--				通过search方法来回去指定的数据，来显示-->
+        <tr v-for="item in search(keywords)" :key="item.id">
+            <td>{{item.id}}</td>
+            <td v-text="item.name"></td>
+            <td>{{item.ctime}}</td>
+            <td><a href="" @click.prevent="del(item.id)"> 删除</a></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<script>
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            id: '',
+            name: '',
+            keywords: '',
+            list: [{
+                id: 1,
+                name: "奔驰",
+                ctime: new Date()
+            }, {
+                id: 2,
+                name: "宝马",
+                ctime: new Date()
+            }]
+        },
+        methods: {
+            add() {
+                console.log('ok');
+                //分析
+                //1。id 和 name 直接从data中获取
+                //2。组织出一个对象
+                //3。把这个对象 调用数据的方法，添加data上中的list中
+                //4。注意：vue已经实现了双向数据绑定，每当我们修改data中的数据时，vue中默认监听到数据的改动，自动把数据应用到页面上
+                var obj = {id: this.id, name: this.name, ctime: new Date()};
+                this.list.push(obj);
+                this.id = this.name = '';
+            },
+            del(id) {
+                //分析
+                //1。如何根据id 获取需要删除的list中的这条数据
+                //2。找到之后如何删除，调用splice方法
 
-			</table>
-		</div>
-		<script>
-			var vm = new Vue({
-				el: '#app',
-				data: {
-					list: [{
-						id: 1,
-						name: "奔驰",
-						ctime: new Date()
-					}, {
-						id: 2,
-						name: "宝马",
-						ctime: new Date()
-					}]
-				},
-				methods: {
-
-				}
-			})
-		</script>
-	</body>
+                /*this.list.some((item,i)=>{
+                    if (item.id ==id){
+                        this.list.splice(i,1);
+                        return true;
+                    }
+                })*/
+                var number = this.list.findIndex(item => {
+                    if (item.id == id) {
+                        return true;
+                    }
+                });
+                this.list.splice(number, 1);
+            },
+            search(keywords) {
+            	var newList=[];
+            	/*this.list.forEach(item=>{
+            		if (item.name.indexOf(keywords) != -1){
+            			newList.push(item);
+					}
+				})
+				return newList;*/
+            	//注意：foreach some filter findIndex 都是数据的新方法，都会对数组中的每一样进行遍历
+            	newList = this.list.filter(item=>{
+            		//ES6中，出现一个新方法 String.protype.includes(keywords)
+            		if (item.name.includes(keywords)){
+            			return item
+					}
+				});
+            	return newList;
+            }
+        }
+    })
+</script>
+</body>
 </html>

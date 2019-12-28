@@ -1,6 +1,6 @@
 <template>
     <div class="goodslist">
-        <pre v-text="$attrs"/>
+        <p>this is goodslist</p>
     </div>
 </template>
 
