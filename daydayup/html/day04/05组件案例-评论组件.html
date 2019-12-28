@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>vue study</title>
+    <script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
+</head>
+<body>
+<div id="app">
+    <!--    父组件向子组件 传递方法时 可以使用事件绑定属机制（v-on）的形式，当自定义了一个事件属性之后，这是，子组件就可以通过某种方式
+    调用传递进去的方法-->
+    <com2 v-on:func="show"></com2>
+</div>
+<template id="tmpl">
+    <div>
+        <h1>this is child component</h1>
+        <input type="button" value="这是子组件中的按钮-点击它 触发父组件传递过来的func方法" @click="myclick">
+    </div>
+</template>
+<script>
+    // 定义字面量 模板对象
+    var com2 = {
+        template: '#tmpl',
+        data(){
+            return {
+                id:1,
+                name:"moer"
+            }
+        },
+        methods: {
+            myclick() {
+                console.log('ok');
+                //当点击子组件按钮的时候 如何拿到父组件传递过来的func,并调用它
+                //emit 英文原意：触发 调用 发射的意思
+                this.$emit('func', this.id,this.name)
+            },
+        }
+    };
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            aa: '123 this father component',
+            dateMsgFromson:'',
+        },
+        methods: {
+            show(data, data2) {
+                console.log('this invoke  show() of parent component  data =' + data + " data2 = " + data2)
+                this.dateMsgFromson = {id:data,name:data2};
+                console.log(this.dateMsgFromson)
+            }
+        },
+        //定义子组件
+        components: {
+            com2,//'com2':com2
+        }
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>vue study</title>
+    <script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
+</head>
+<body>
+<div id="app">
+    <input type="text" v-model="first_name" @keyup="getFullName">+
+    <input type="text" v-model="last_name" @keyup="getFullName">=
+    <input type="text" v-model="full_name">
+</div>
+<script>
+    var vm = new Vue({
+        el: '#app',
+        data: {
+        	first_name:'',
+        	last_name:'',
+        	full_name:'',
+		},
+        methods: {
+        	getFullName(){
+        		this.full_name = this.first_name + '-' + this.last_name
+			}
+		}
+    })
+</script>
+</body>
+</html>

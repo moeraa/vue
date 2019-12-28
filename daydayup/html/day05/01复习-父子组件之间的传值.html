@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>vue study</title>
+    <script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
+</head>
+<body>
+<div id="app">
+    <com1 v-bind:parentmsg="msg" v-on:funcs="getDataFromSon"></com1>
+</div>
+<template id="tmpl">
+    <div>
+        <h1>this is son component get parent msg----{{parentmsg}}</h1>
+        <input type="button" value="son give dad" @click="sendMsg">
+
+    </div>
+</template>
+<script>
+    var com1 = {
+        template: '#tmpl',
+        props: ['parentmsg'],
+        data() {
+            return {
+                sonMsg: 'i am son'
+            }
+        },
+        methods: {
+            sendMsg() {
+                this.$emit('funcs', this.sonMsg)
+            }
+        }
+    };
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            msg: 'i am dad',
+            msgFromson: '',
+        },
+        methods: {
+            getDataFromSon(data) {
+                this.msgFromson = data;
+                console.log('this is from son data------' + this.msgFromson)
+            }
+        },
+        components: {
+            com1
+        }
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>vue study</title>
+    <script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
+</head>
+<body>
+<!--在被控制的#app 的外面，定义使用的template元素，定义的html的模板结构-->
+<template id="tmpl">
+    <div>
+        <h1>这是通过 template 元素，在 外部定义的组件结构，这个方法 有代码提示和高亮</h1>
+        <h2>it is fine</h2>
+    </div>
+</template>
+<template id="tmpl2">
+    <div>
+        <h2>这是私有的login 组件</h2>
+    </div>
+</template>
+<div id="app">
+    <!--    如果要使用组件，直接把组件的名称，以html标签的形式 即可-->
+    <mycom3></mycom3>
+</div>
+<div id="app2">
+    <!--    如果要使用组件，直接把组件的名称，以html标签的形式 即可-->
+    <login></login>
+
+</div>
+<script>
+    Vue.component('mycom3', {
+        //注意：无论是使用哪一种方式创建的组件，组件template的属性所指向的模板内容，必须有且只有唯一的根元素
+        template: '#tmpl'
+    });
+    var vm = new Vue({
+        el: '#app',
+        data: {},
+        methods: {}
+    });
+    var vm2 = new Vue({
+        el: '#app2',
+        data: {},
+        methods: {}, filters: {}, directives: {},
+        components: {//定义实例内部私有组件的
+            'login': {
+                template: '#tmpl2'
+            }
+
+        },
+
+
+        //钩子函数
+        beforeCreate() {
+        }, created() {
+        }, beforeMount() {
+        }, mounted() {
+        }, beforeUpdate() {
+        }, updated() {
+        }, beforeDestory() {
+        }, Destory() {
+        }
+    });
+</script>
+</body>
+</html>

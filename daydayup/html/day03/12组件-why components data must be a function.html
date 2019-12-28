@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>vue study</title>
+    <script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
+</head>
+<body>
+<div id="app">
+    <mycom5></mycom5>
+</div>
+<script>
+    //1.组件可以有data
+    //2.组件的data和实例中的data不一样，实例中的data可以是一个对象，但是组件中的data是个方法，
+    //3.组件中的data除了必须是一个方法之外，这个方法内部，必须返回一个对象才行
+    //4.组件中的data数据，使用方式和实例中的data使用方式完全一致
+    Vue.component('mycom5', {
+        template: '<h1>this public component---{{msg}}</h1>',
+        data: function () {
+            return {
+                msg:'this  data belong to component '
+            }
+        }
+    })
+    var vm = new Vue({
+        el: '#app',
+        data: {},
+        methods: {}
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>vue study</title>
+    <script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
+</head>
+<body>
+<template id="login">
+    <div>
+        <h3>登陆组件</h3>
+    </div>
+</template>
+<template id="register">
+    <div>
+        <h3>注册组件</h3>
+    </div>
+</template>
+<div id="app">
+    <a href=""  @click.prevent="flag=true"> 登陆</a>
+    <a href=""  @click.prevent="flag=false"> 注册</a>
+<!--    //组件切换，可以使用v-if v-else-->
+    <login v-if="flag"></login>
+    <register v-else="flag"></register>
+</div>
+<script>
+    Vue.component('login', {
+        template: '#login',
+        data: function () {
+            return {count: 0}
+        },
+        methods: {
+            increment() {
+                this.count++
+            }
+        }
+    });
+    Vue.component('register', {
+        template: '#register',
+        data: function () {
+            return {count: 0}
+        },
+        methods: {
+            increment() {
+                this.count++
+            }
+        }
+    });
+    var vm = new Vue({
+        el: '#app',
+        data: {flag: true},
+        methods: {}
+    })
+</script>
+</body>
+</html>

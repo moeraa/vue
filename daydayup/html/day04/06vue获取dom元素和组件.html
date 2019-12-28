@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>vue study</title>
+    <script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
+    <link rel="stylesheet" href="../../lib/bootstrap.css">
+</head>
+<body>
+<div id="app">
+    <comment-box @func="loadcomment"></comment-box>
+    <ul class="list-group">
+        <li class="list-group-item" v-for="item in list" :key="item.id">
+            <span class="badge">评论人：{{item.user}}</span>
+            {{item.content}}
+        </li>
+    </ul>
+</div>
+<template id="tmpl">
+    <div>
+        <div class="form-group">
+            <label>评论人：</label>
+            <input type="text" class="form-control" v-model="user_1">
+        </div>
+        <div class="form-group">
+            <label>评论内容：</label>
+            <textarea class="form-control" v-model="content_2"></textarea>
+        </div>
+        <div class="form-group">
+            <input type="button" value="发表评论" class="btn btn-primary" @click="postcomment">
+        </div>
+    </div>
+</template>
+<script>
+    var commentBox = {
+        template: '#tmpl',
+        data() {
+            return {
+                user_1: '',
+                content_2: '',
+            }
+        },
+        methods: {
+            postcomment() {
+                //发表评论的方法
+                //分析：
+                //1. 评论的数据存储到---localstorage中
+                //2. 组织评论对象
+                //3.将评论的对象保存到localstorage
+                //3.1 localstorge中 直接收字符串，这是调用JSON.stringify
+                //3.2在保存最新的评论之前，需要获取之前的数据转换为 数组对象，然后将最新的评论push进去
+                //3.3 如果获取到的localstorage中的值 为空 或者空字符串，可以返回一个' []'  让JSON.parse()
+                //3.4 将最新的评论列表数组，再次调用JSON.stringify转化为数组字符串，然后在调用localStorge.setItem()
+                var comment = {id: Date.now(), user: this.user_1, content: this.content_2};
+                var list = JSON.parse(localStorage.getItem('aa') || '[]');
+                list.unshift(comment);
+                localStorage.setItem('aa', JSON.stringify(list));
+                this.user = this.content = '';
+                this.$emit('func')
+            }
+        }
+    };
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            list: [
+                {id: Date.now(), user: '李白', content: "天生我材必有用"},
+                {id: Date.now(), user: '姜小白', content: "姜小白啊 啊 啊"},
+                {id: Date.now(), user: '小白', content: "小拜拜"}
+            ]
+        },
+        components: {
+            'commentBox': commentBox
+        },
+        methods: {
+            loadcomment() {
+                var parse = JSON.parse(localStorage.getItem('aa') || '[]');
+                this.list = parse;
+            }
+        },
+        created() {
+            this.loadcomment()
+        },
+
+    })
+</script>
+</body>
+</html>
