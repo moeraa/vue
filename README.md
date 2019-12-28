@@ -767,6 +767,6 @@
       import './../lib/mui/dist/css/mui.min.css'
   - 使用对应的代码段
 ## 开发学习的项目
-
+  - 使用vue MUI mint-ui 开发项目
 
 ​    
