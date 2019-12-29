@@ -4,6 +4,8 @@ import HomeContainer from './components/tabbar/HomeContainer/HomeContainer.vue'
 import SearchContainer from './components/tabbar/SearchContainer/SearchContainer.vue'
 import ShopCarContainer from './components/tabbar/ShopCarContainer/ShopCarContainer.vue'
 import MemberContainer from './components/tabbar/MemberContainer/MemberContainer.vue'
+import NewsList from "./components/news/news.vue";
+import NewsInfo from "./components/news/newsinfo/newsinfo.vue";
 
 var router = new VueRouter({
     routes: [
@@ -12,6 +14,12 @@ var router = new VueRouter({
         {path: '/member', component: MemberContainer},
         {path: '/shopcar', component: ShopCarContainer},
         {path: '/search', component: SearchContainer},
+        {
+            path: '/home/newslist', component: NewsList
+        },
+        {
+            path: '/home/newsinfo/:id', component: NewsInfo
+        }
     ],
     linkActiveClass: 'mui-active'//覆盖默认的路由高亮的类， 默认是 "router-link-active "
 

@@ -35,5 +35,34 @@
                   // 图片路径  处理url 可以传参，修改相关属性,
               },
 ```
+## 改造 新闻资讯 路由链接
+## 新闻咨询页面 制作
+   1. 绘制界面 使用使用MuI中的media-list 
+   ```
+    //导入格式化时间插件
+    import moment from 'moment'
+    //定义全局的过滤器
+    Vue.filter('dataFormat',function (dataStr,pattern="yyyy-MM-DD HH:mm:ss") {
+        return moment(dataStr).format(pattern);
+    });
+   ```
+   2. 使用vue-resource获取数据
+   3. 渲染真实数据
+## 实现新闻咨询列表 点击跳转新闻详情
+  1. 把列表中的每一项改造为：router-link 同时 在跳转的时候 应该提供唯一的ID标识符
+  2. 创建 新闻详情的组件页面 newsinfo.vue
+  3. 在路由模块中，将新闻详情的路由地址 和页面组件对应起来
+## 实现 新闻详情的页面布局和数据渲染
+## 单独封装一个单独的 comment.vue组件
+ 1. 先创建一个单独的 comment.vue 组件模版
+ 2. 在需要用的页面 手动导入此组件
+  - import comment from './comment.vue'
+ 3. 在父组件中，使用 、components、 属性，将刚才导入的comment组件，注册为自己的子组件，
+ 4. 将注册的子组件 注册名称，以标签的形式在页面中引用即可
+ ## 获取所有评论的数据显示到页面中
+ ## 实现点击搭载更多的功能
+ 1. 为了加载更多按钮绑定点击事件，在事件中，点击下一页
+ 2. 点击加载更多 让page index++ 然后重新嗲用getcommets()方法，获取下一页的数据
+ 3.
 
 
